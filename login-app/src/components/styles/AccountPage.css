@@ -1,0 +1,15 @@
+.AccountContainer {
+  padding: 18px;
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 9px;
+  text-align: center;
+  height: 50vh
+}
+
+.Input {
+  width: clamp(200px, 45%, 80%)
+}
