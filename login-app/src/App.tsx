@@ -8,7 +8,11 @@ export default function App() {
   const [login, { error }] = useMutation(LOGIN)
 
   useEffect(() => {
-    login().then((data) => console.log(data))
+    login({
+      variables: {
+        input: { identifier: 'test@freshcells.de', password: 'KTKwXm2grV4wHzW' },
+      },
+    }).then((data) => console.log(data))
   }, [])
 
   return (
