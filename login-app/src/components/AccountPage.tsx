@@ -1,20 +1,25 @@
 import React from 'react'
 import './styles/AccountPage.css'
-import { useQuery, gql } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { USER } from '../graphql/Queries'
-import { store } from '../Store'
-
-const { getState } = store
+import { useStore } from '../Store'
+import { useNavigate } from 'react-router-dom'
 
 export default function AccountPage() {
-  const { userInfo } = getState()
+  const userInfo = useStore((state) => state.userInfo)
+  const resetUser = useStore((state) => state.resetUser)
+  const navigate = useNavigate()
+
   const { data, loading } = useQuery(USER, {
     variables: {
       id: userInfo.id,
     },
   })
 
-  console.log(data)
+  function handleLogout() {
+    resetUser()
+    navigate('/', { replace: true })
+  }
 
   return (
     <div className={'AccountContainer'}>
@@ -26,7 +31,7 @@ export default function AccountPage() {
       <p>Last Name:</p>
       <input className={'Input'} disabled value={data?.user?.lastName || ''} />
 
-      <button>Logout</button>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   )
 }

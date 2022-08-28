@@ -15,8 +15,6 @@ import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 import { store } from './Store'
 
-const { getState: getStoreState } = store
-
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.map(({ message }) => {
@@ -29,7 +27,8 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 })
 
 const authLink = setContext((_, { headers }) => {
-  const { userInfo } = getStoreState()
+  const { getState } = store
+  const { userInfo } = getState()
   return {
     headers: {
       ...headers,
@@ -59,7 +58,4 @@ root.render(
   </React.StrictMode>,
 )
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()
