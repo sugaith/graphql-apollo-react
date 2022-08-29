@@ -5,7 +5,6 @@ import { Routes, Route } from 'react-router-dom'
 import LoginPage from './LoginPage'
 import AccountPage from './AccountPage'
 import { useStore } from '../Store'
-import { LoadingIndicator } from './LoadingIndicator'
 
 export default function App() {
   const userInfo = useStore((state) => state.userInfo)
