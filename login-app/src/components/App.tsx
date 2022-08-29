@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom'
 import LoginPage from './LoginPage'
 import AccountPage from './AccountPage'
 import { useStore } from '../Store'
+import { LoadingIndicator } from './LoadingIndicator'
 
 export default function App() {
   const userInfo = useStore((state) => state.userInfo)
@@ -16,7 +17,6 @@ export default function App() {
         <p>{'React / GraphQL Trial'}</p>
         {userInfo?.email && <p>{` - ${userInfo.email}`}</p>}
       </header>
-
       <Routes>
         <Route path={'/'} element={<LoginPage />} />
         <Route path={'/account'} element={<AccountPage />} />

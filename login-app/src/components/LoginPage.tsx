@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client'
 import { LOGIN } from '../graphql/Mutations'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../Store'
+import { LoadingIndicator } from './LoadingIndicator'
 
 export default function LoginPage() {
   const resetUser = useStore((state) => state.resetUser)
@@ -45,6 +46,8 @@ export default function LoginPage() {
 
   return (
     <div className={'LoginContainer'}>
+      <LoadingIndicator isLoading={loading} />
+
       <p>Login:</p>
       <input disabled={loading} onChange={(e) => setIdentifier(e.target.value)} />
       <input disabled={loading} onChange={(e) => setPassword(e.target.value)} />

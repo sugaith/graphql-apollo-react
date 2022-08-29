@@ -5,6 +5,7 @@ import { USER } from '../graphql/Queries'
 import { useStore } from '../Store'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie'
+import { LoadingIndicator } from './LoadingIndicator'
 const cookies = new Cookies()
 
 export default function AccountPage() {
@@ -34,6 +35,8 @@ export default function AccountPage() {
       <input className={'Input'} disabled value={data?.user?.lastName || ''} />
 
       <button onClick={handleLogout}>Logout</button>
+
+      <LoadingIndicator isLoading={loading} />
     </div>
   )
 }
