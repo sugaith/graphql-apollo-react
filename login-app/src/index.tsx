@@ -15,12 +15,7 @@ import {
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    graphQLErrors.map(({ message }) => {
-      alert('Error:  ' + message)
-    })
-  }
+const errorLink = onError(({ networkError }) => {
   if (networkError) {
     alert('NetworkError:  ' + networkError.message)
   }

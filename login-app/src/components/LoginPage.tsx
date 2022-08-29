@@ -9,8 +9,8 @@ import { LoadingIndicator } from './LoadingIndicator'
 export default function LoginPage() {
   const resetUser = useStore((state) => state.resetUser)
   const setUserInfo = useStore((state) => state.setUserInfo)
-  const [identifier, setIdentifier] = useState('test@freshcells.de')
-  const [password, setPassword] = useState('KTKwXm2grV4wHzW')
+  const [identifier, setIdentifier] = useState('')
+  const [password, setPassword] = useState('')
   const [performLogin, { loading }] = useMutation(LOGIN)
   const navigate = useNavigate()
 
@@ -50,7 +50,11 @@ export default function LoginPage() {
 
       <p>Login:</p>
       <input disabled={loading} onChange={(e) => setIdentifier(e.target.value)} />
-      <input disabled={loading} onChange={(e) => setPassword(e.target.value)} />
+      <input
+        type={'password'}
+        disabled={loading}
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <button disabled={loading} onClick={handleLogin}>
         Enter
       </button>
