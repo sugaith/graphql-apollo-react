@@ -36,7 +36,6 @@ export default function LoginPage() {
       navigate('/account')
     } catch (e) {
       alert('Invalid Credentials.')
-      console.error(e)
     }
   }
 
