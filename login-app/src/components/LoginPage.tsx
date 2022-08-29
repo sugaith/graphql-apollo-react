@@ -3,11 +3,11 @@ import './styles/LoginPage.css'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../graphql/Mutations'
 import { useNavigate } from 'react-router-dom'
-import { store } from '../Store'
-
-const { setState } = store
+import { useStore } from '../Store'
 
 export default function LoginPage() {
+  const resetUser = useStore((state) => state.resetUser)
+  const setUserInfo = useStore((state) => state.setUserInfo)
   const [identifier, setIdentifier] = useState('test@freshcells.de')
   const [password, setPassword] = useState('KTKwXm2grV4wHzW')
   const [performLogin, { loading }] = useMutation(LOGIN)
@@ -15,6 +15,7 @@ export default function LoginPage() {
 
   async function handleLogin() {
     try {
+      resetUser()
       if (!isValidEmailAddress(identifier)) {
         alert('Invalid email format.')
         return
@@ -25,16 +26,15 @@ export default function LoginPage() {
         },
       })
 
-      setState({
-        userInfo: {
-          id: data.login.user.id,
-          email: data.login.user.email,
-          token: data.login.jwt,
-        },
+      setUserInfo({
+        id: data.login.user.id,
+        email: data.login.user.email,
+        token: data.login.jwt,
       })
 
       navigate('/account')
     } catch (e) {
+      alert('Invalid Credentials.')
       console.error(e)
     }
   }

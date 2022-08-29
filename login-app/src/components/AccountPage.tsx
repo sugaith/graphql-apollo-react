@@ -4,15 +4,17 @@ import { useQuery } from '@apollo/client'
 import { USER } from '../graphql/Queries'
 import { useStore } from '../Store'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'universal-cookie'
+const cookies = new Cookies()
 
 export default function AccountPage() {
-  const userInfo = useStore((state) => state.userInfo)
+  const authInfo = cookies.get('userAuth')
   const resetUser = useStore((state) => state.resetUser)
   const navigate = useNavigate()
 
   const { data, loading } = useQuery(USER, {
     variables: {
-      id: userInfo.id,
+      id: authInfo.id,
     },
   })
 

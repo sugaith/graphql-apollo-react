@@ -11,5 +11,6 @@
 }
 
 .Input {
-  width: clamp(200px, 45%, 80%)
+  width: clamp(200px, 45%, 80%);
+  color: white;
 }

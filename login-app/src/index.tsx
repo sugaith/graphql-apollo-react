@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import Cookies from 'universal-cookie'
 import { BrowserRouter } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 import './index.css'
@@ -13,7 +14,6 @@ import {
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
-import { store } from './Store'
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
@@ -27,12 +27,12 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 })
 
 const authLink = setContext((_, { headers }) => {
-  const { getState } = store
-  const { userInfo } = getState()
+  const cookies = new Cookies()
+  const authInfo = cookies.get('userAuth')
   return {
     headers: {
       ...headers,
-      authorization: userInfo.token ? `Bearer ${userInfo.token}` : '',
+      authorization: authInfo?.token ? `Bearer ${authInfo.token}` : '',
     },
   }
 })
